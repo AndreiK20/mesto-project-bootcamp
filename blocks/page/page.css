@@ -1,0 +1,12 @@
+.page{
+  max-width: 1280px;
+  min-width: 320px;
+  padding-left: calc((100% - 880px) / 2);
+  padding-right: calc((100% - 880px) / 2);
+  font-family: 'Inter';
+}
+@media screen and (max-width: 900px){
+  .page{
+    padding: 0
+  };
+}

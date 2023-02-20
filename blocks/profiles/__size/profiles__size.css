@@ -1,0 +1,12 @@
+.profiles__size {
+  margin-bottom: 50px;
+  min-width: 100%;
+}
+@media screen and (max-width: 900px) {
+  .profiles__size {
+    min-width: auto;
+    margin-bottom: 36px;
+    margin-left: calc((100% - 282px) / 2);
+    margin-right: calc((100% - 282px) / 2);
+  }
+}

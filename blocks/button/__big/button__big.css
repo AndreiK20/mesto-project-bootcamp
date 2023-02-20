@@ -1,0 +1,14 @@
+.button__big{
+    width: 150px;
+    height: 50px;
+    background-color: #000000;
+    border: 2px solid #ffffff;
+    border-radius: 2px;
+    align-self: center;
+
+}
+@media screen and (max-width: 900px) {
+    .button__big {
+      min-width: 100%;
+    }
+  }

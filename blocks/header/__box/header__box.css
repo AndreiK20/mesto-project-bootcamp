@@ -1,0 +1,15 @@
+.header__box {
+  margin-top: 45px;
+  margin-bottom: 40px;
+  display: flex;
+  min-width: 100%;
+  min-height: 74px;
+  border-bottom: 1px solid #545454;
+}
+@media screen and (max-width: 900px) {
+  .header__box {
+    min-height: 56px;
+    margin-top: 28px;
+    margin-bottom: 42px;
+  }
+}
