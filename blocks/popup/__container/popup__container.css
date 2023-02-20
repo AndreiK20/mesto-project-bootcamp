@@ -14,10 +14,10 @@
   margin-top: 195px;
 }
 @media screen and (max-width: 900px) {
-    .popup__container {
-      width: 282px;
-      margin-top: 123px;
-      margin-left: calc((100% - 283px) / 2);
-      margin-right: calc((100% - 283px) / 2);
-    }
+  .popup__container {
+    width: 282px;
+    margin-top: 123px;
+    margin-left: calc((100% - 283px) / 2);
+    margin-right: calc((100% - 283px) / 2);
   }
+}

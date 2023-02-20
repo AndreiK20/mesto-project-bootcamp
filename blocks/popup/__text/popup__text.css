@@ -11,8 +11,8 @@
   align-self: flex-start;
 }
 @media screen and (max-width: 900px) {
-    .popup__text{
-        font-size: 14px;
-        line-height: 17px;
-    }
+  .popup__text {
+    font-size: 14px;
+    line-height: 17px;
   }
+}
