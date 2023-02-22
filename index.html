@@ -5,46 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./pages/index.css">
-    <title>Mesto</title>
+    <title>Место</title>
   </head>
   <body class="root">
-    <div class = "page">
-      <header class="header">
-        <div class="header__box">  
-          <img class="header__logo" src="./images/logo.svg" alt="Mesto">
+    <header class="header">
+      <img class="header__logo" src="./images/logo.svg" alt="Место">
+    </header>
+    <div class="main">
+      <section class="profile profile__size">
+        <img class="avatar" src="./images/Avatar.jpg" alt="портрет">
+        <div class="profile__info">
+          <div class="profile__titles">
+            <h1 class="profile__head">Жак-Ив Кусто</h1>
+            <p class="profile__text">Исследователь океана</p>
+          </div>
+          <button type="submit" class="button button_size_small"></button>
         </div>
-      </header>
-      <section class="profiles">
-        <div class="profiles profiles__size">
-          <div class="profile">
-            <img class="avatar" src="./images/Avatar.jpg" alt="портрет">
-            <div class="profile__info">
-              <div class="titles">
-                <h1 class="titles__head">Жак-Ив Кусто</h1>
-                <p class="titles__text">Исследователь океана</p>
-              </div>
-              <button class="button button__small">
-                <img class="titles__image" src="./images/vector_pen.svg">
-              </button>
-            </div>
-          </div>  
-          <button class ="button button__big">
-            <img class="buttom__vector" src="./images/Vector.svg" alt="курсор">
-          </button>
-        </div>
-      </section>
-      <section class="popup popup_opened">
-        <div class="popup__container">
-          <button class="button button__closed">
-            <img class="image__cross" src="./images/Close Icon.svg" alt="крест">
-          </button>
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <h3 class="popup__text">Жак-Ив Кусто</h3>
-          <div class="popup__box"></div>
-          <h3 class="popup__text">Исследователь океана</h3>
-          <div class="popup__box"></div>
-          <button class="button button__save">Сохранить</button>
-        </div>
+        <button type="submit" class ="button button_size_big">
+          <img class="button__vector" src="./images/Vector.svg" alt="курсор">
+        </button>
       </section>
       <section class="elements">
         <ul class="elements__lists">
@@ -52,51 +31,75 @@
             <img class="elements__photo" src="./images/img1.png" alt="старое сооружение">
             <div class="elements__group">
               <h2 class="elements__title"> Карачаевск</h2>
-              <img class="button button__like" src="./images/like.svg" alt="сердечко">
+              <button type="submit" class="button button_size_like">
+              <img clas="elements__like" src="./images/like.svg" alt="сердечко">
+              </button>
             </div>
           </li>
           <li class="elements__list">
             <img class="elements__photo" src="./images/img2.png" alt="восход солнца">
             <div class="elements__group">
               <h2 class="elements__title"> Гора Эльбрус</h2>
-              <img class="button button__like" src="./images/like.svg" alt="сердечко"> 
+              <button type="submit" class="button button_size_like">
+                <img clas="elements__like" src="./images/like.svg" alt="сердечко">
+              </button>
             </div>
           </li>
           <li class="elements__list">
             <img class="elements__photo" src="./images/img3.png" alt="горы">
             <div class="elements__group">
               <h2 class="elements__title">Домбай</h2>
-              <img class="button button__like" src="./images/like.svg" alt="сердечко"> 
+              <button type="submit" class="button button_size_like">
+                <img clas="elements__like" src="./images/like.svg" alt="сердечко">
+              </button>
             </div>
           </li>
           <li class="elements__list">
             <img class="elements__photo" src="./images/img4.png" alt="восход солнца">
             <div class="elements__group">
               <h2 class="elements__title">Гора Эльбрус</h2>
-              <img class="button button__like" src="./images/like.svg" alt="сердечко"> 
+              <button type="submit" class="button button_size_like">
+                <img clas="elements__like" src="./images/like.svg" alt="сердечко">
+              </button>
             </div>
           </li>
           <li class="elements__list">
             <img class="elements__photo" src="./images/img5.png" alt="горы">
             <div class="elements__group">
               <h2 class="elements__title">Домбай</h2>
-              <img class="button button__like" src="./images/like.svg" alt="сердечко"> 
+              <button type="submit" class="button button_size_like">
+                <img clas="elements__like" src="./images/like.svg" alt="сердечко">
+              </button>
             </div>
           </li>
           <li class="elements__list">
             <img class="elements__photo" src="./images/img6.png" alt="старое сооружение">
             <div class="elements__group">
               <h2 class="elements__title"> Карачаево-Черкессия</h2>
-              <img class="button button__like" src="./images/like.svg" alt="сердечко"> 
+              <button type="submit" class="button button_size_like">
+                <img clas="elements__like" src="./images/like.svg" alt="сердечко">
+              </button>
             </div>
           </li>
         </ul>
       </section>
-      <footer class="footer">
-        <div class="footer__box">
-          <h3 class="footer__title"> &copy; 2020 Mesto Russia</h3>
-        </div>
-      </footer>
     </div>
+    <footer class="footer footer__box">
+      <div class="footer__title"> &copy; 2020 Mesto Russia</div>
+    </footer>
+    <div class="popup popup_opened">
+      <div class="popup__container">
+        <button type="submit" class="button button_size_closed">
+          <img class="popup__cross"src="./images/Close Icon.svg" alt="крест">
+        </button>
+        <form class="form">
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <input type="text" placeholder="имя" name="name" class="popup__text">
+          <input type="text" placeholder="о себе" class="popup__text">
+          <button type="submit" class="button button_size_save">Сохранить</button>
+        </form>
+      </div>
+    </div>
+    <script type="text/javascript" src="./scripts/index.js"></script>
   </body>
 </html>

@@ -1,0 +1,15 @@
+.button_size_closed {
+  width: 32px;
+  height: 32px;
+  background-color: #000000;
+  position: relative;
+  top: -40px;
+  right: -440px;
+}
+@media screen and (max-width: 900px) {
+  .button_size_closed{
+    width: 20px;
+    height: 20px;
+    right: -262px;
+  }
+}

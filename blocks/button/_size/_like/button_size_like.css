@@ -1,0 +1,14 @@
+.button_size_like {
+  width: 22px;
+  height: 19px;
+  align-self: center;
+  background-color: #FFFFFF;
+  margin-right: 20px;
+}
+.button_size_like:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+.button_size_like:active {
+  background-color: #000000;
+}

@@ -1,0 +1,15 @@
+.button_size_small {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  width: 24px;
+  height: 24px;
+  margin-top: 15px;
+}
+@media screen and (max-width: 900px) {
+  .button_size_small {
+    margin-top: 8px;
+  }
+}
+.button_size_small:after{
+  content: url(../../../../images/vector_pen.svg);
+}
