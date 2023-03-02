@@ -66,9 +66,8 @@ EstablishInitialCards();
 function CardSubmit(evt) {
     evt.preventDefault();
     const PlaceElement = PlaceTemplate.querySelector('.elements__list').cloneNode(true);
-    NewitemtitleInput.value = NewCards.textContent
+    NewitemtitleInput.name = NewCards.value
     NewitemImgInput.link = NewPhoto.value
-
     PlacesContainer.append(PlaceElement);
     CloseCard(PopupTypeCard);
 }
