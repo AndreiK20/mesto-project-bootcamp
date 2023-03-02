@@ -1,4 +1,5 @@
 .elements__list {
+  position: relative;
   min-width: 282px;
   min-height: 361px;
   list-style-type: none;
