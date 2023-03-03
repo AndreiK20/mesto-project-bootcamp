@@ -1,104 +1,153 @@
-const ButtonInfo = document.querySelector('.button_size_small');
-const ButtonCard = document.querySelector('.button_size_big');
-const PopupTypeInfo = document.querySelector('.popup_type_info')
-const PopupTypeCard = document.querySelector('.popup_type_card')
-const ButtonClosedInfo = PopupTypeInfo.querySelector('.button_size_closed');
-const ButtonClosedCard = PopupTypeCard.querySelector('.button_size_closed');
-const FormElement = PopupTypeInfo.querySelector('#info');
-const CardsElemen = PopupTypeCard.querySelector('.form');
-const PageTitle = document.querySelector('.profile__head');
-const PageSubtitle = document.querySelector('.profile__text');
-const NameInput = PopupTypeInfo.querySelector('#title');
-const JobInput = PopupTypeInfo.querySelector('#subtitle');
-const NewCards = PopupTypeInfo.querySelector('#text')
-const NewPhoto = PopupTypeCard.querySelector('#picture')
-const InitialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
+const buttonInfo = document.querySelector(".button_size_small");
+const buttonCard = document.querySelector(".button_size_big");
+const popupTypeInfo = document.querySelector(".popup_type_info");
+const popupTypeCard = document.querySelector(".popup_type_card");
+const buttonClosedInfo = popupTypeInfo.querySelector(".button_size_closed");
+const buttonClosedCard = popupTypeCard.querySelector(".button_size_closed");
+const formElement = popupTypeInfo.querySelector("#info");
+const cardsElement = popupTypeCard.querySelector(".form");
+const pageTitle = document.querySelector(".profile__head");
+const pageSubtitle = document.querySelector(".profile__text");
+const nameInput = popupTypeInfo.querySelector("#title");
+const jobInput = popupTypeInfo.querySelector("#subtitle");
+const newCards = popupTypeInfo.querySelector("#text");
+const newPhoto = popupTypeCard.querySelector("#picture");
+const initialcards = [
+  {
+    name: "Архыз",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
+  },
+  {
+    name: "Челябинская область",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
+  },
+  {
+    name: "Иваново",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
+  },
+  {
+    name: "Камчатка",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
+  },
+  {
+    name: "Холмогорский район",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
+  },
+  {
+    name: "Байкал",
+    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
+  },
 ];
-const PlacesContainer = document.querySelector('.elements__lists');
-const PlaceTemplate = document.querySelector('#cards').content; 
-const PlaceInfo = InitialCards.map(function (item) {
-  return {
-    name: item.name,
-    link: item.link
-  };
-});
-const NewitemtitleInput = document.querySelector('.elements__group')
-const NewitemImgInput = document.querySelector('.elements__photo')
+const placesContainer = document.querySelector(".elements__lists");
+const placeTemplate = document.querySelector("#cards").content;
+const newItemTitleinput = popupTypeCard.querySelector("#text");
+const newItemimginput = popupTypeCard.querySelector("#picture");
 
 
+//edit new card 
 
-function EstablishInitialCards() {
-  PlaceInfo.forEach(PutInitialCards);
+function establishInitialCards(item) {
+    const initialElement = placeTemplate.cloneNode(true);
+    const initialImage = initialElement.querySelector(".elements__photo");
+    initialElement.querySelector(".elements__title").textContent = item.name;
+    initialImage.src = item.link;
+    initialImage.alt = item.name;
+    initialElement.querySelector(".button_size_trash").addEventListener("click", function (evt) {
+      evt.target.closest('.item').remove()
+    });
+    initialElement.querySelector('.button__like_type').addEventListener('click', function (evt) {
+      evt.target.classList.toggle('.button__like_type_active')
+    });
+    
+    return initialElement
+} 
+
+
+function renderCard(item) {
+    const cardCreated = establishInitialCards(item)
+    placesContainer.append(cardCreated);
 }
 
-function PutInitialCards(item) {
-  const PlaceElement = PlaceTemplate.querySelector('.elements__list').cloneNode(true);
-  PlaceElement.querySelector('.elements__title').textContent = item.name;
-  PlaceElement.querySelector('.elements__photo').src = item.link;
-  PlacesContainer.append(PlaceElement);
-}
-EstablishInitialCards();
-
-function CardSubmit(evt) {
+function createdCard(evt) {
     evt.preventDefault();
-    const PlaceElement = PlaceTemplate.querySelector('.elements__list').cloneNode(true);
-    NewitemtitleInput.name = NewCards.value
-    NewitemImgInput.link = NewPhoto.value
-    PlacesContainer.append(PlaceElement);
-    CloseCard(PopupTypeCard);
+    const cardInfo = {};
+    cardInfo.name = newItemTitleinput.value;
+    cardInfo.link = newItemimginput.value;
+    renderCard(cardInfo)
 }
+
+initialcards.forEach(renderCard);
 
 
 
-function OpenPopup() {
-    NameInput.value = PageTitle.textContent;
-    JobInput.value = PageSubtitle.textContent;
-    PopupTypeInfo.classList.add('popup_opened');
+
+
+
+
+
+
+
+
+
+
+/*
+
+
+ const cardCreate = establishInitialCards(item)
+    elementList.prepend(cardCreated);
+
+initialcards.forEach((item) => {
+    const CardCreated = establishInitialCards(item)
+    placesContainer.append(CardCreated);
+});
+
+function establishInitialCards(item) {
+  const initialElement = placeTemplate.cloneNode(true);
+  const initialImage = initialElement.querySelector(".elements__photo");
+  initialElement.querySelector(".elements__title").textContent = item.name;
+  initialImage.src = item.link;
+  initialImage.alt = item.name;
+  initialElement.querySelector(".button_size_trash").addEventListener("click", function(evt){
+    evt.target.closest('.item').remove()
+  });
+  initialElement.querySelector('.button__like_type').addEventListener('click', function(evt){
+    evt.target.classList.toggle('.button__like_type_active')
+  });
+  
+  return initialElement
+} 
+
+function createdCard(evt) {
+    evt.preventDefault();
+    const cardInfo = {};
+    cardInfo.name = newItemTitleinput.value;
+    cardInfo.link = newItemimginput.value;
 }
-function ClosePopup() {
-    PopupTypeInfo.classList.remove('popup_opened');
+*/
+function openPopup() {
+  nameInput.value = pageTitle.textContent;
+  jobInput.value = pageSubtitle.textContent;
+  popupTypeInfo.classList.add("popup_opened");
 }
-function OpenCard() {
-    PopupTypeCard.classList.add('popup_opened');
+function closePopup() {
+  popupTypeInfo.classList.remove("popup_opened");
 }
-function CloseCard() {
-    PopupTypeCard.classList.remove('popup_opened');
+function openCard() {
+  popupTypeCard.classList.add("popup_opened");
+}
+function closeCard() {
+  popupTypeCard.classList.remove("popup_opened");
 }
 function handleFormSubmit(evt) {
-    evt.preventDefault();
-    PageTitle.textContent = NameInput.value;
-    PageSubtitle.textContent = JobInput.value;
-    ClosePopup(PopupTypeInfo);
+  evt.preventDefault();
+  pageTitle.textContent = nameInput.value;
+  pageSubtitle.textContent = jobInput.value;
+  closePopup(popupTypeInfo);
 }
 
-
-ButtonInfo.addEventListener('click', OpenPopup); 
-ButtonCard.addEventListener('click', OpenCard);
-ButtonClosedInfo.addEventListener('click', ClosePopup);
-ButtonClosedCard.addEventListener('click', CloseCard);
-FormElement.addEventListener('submit', handleFormSubmit);
-CardsElemen.addEventListener('submit', CardSubmit);
+buttonInfo.addEventListener("click", openPopup);
+buttonCard.addEventListener("click", openCard);
+buttonClosedInfo.addEventListener("click", closePopup);
+buttonClosedCard.addEventListener("click", closeCard);
+formElement.addEventListener("submit", handleFormSubmit);
+cardsElement.addEventListener("submit", createdCard);

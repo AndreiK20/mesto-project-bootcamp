@@ -1,14 +1,11 @@
-.button_size_like {
+.button__like_type {
   width: 22px;
   height: 19px;
   align-self: center;
   background-color: #FFFFFF;
   margin-right: 20px;
 }
-.button_size_like:hover {
+.button__like_type:hover {
   opacity: 0.5;
   cursor: pointer;
-}
-.button_size_like:active {
-  background-color: #000000;
 }
