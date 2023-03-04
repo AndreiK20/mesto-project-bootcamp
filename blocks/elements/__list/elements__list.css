@@ -5,4 +5,13 @@
   list-style-type: none;
   background-color: #ffffff;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 1;
+  visibility: visible;
+  transition: visibility 0s, opacity 3.2s, ease-in;
+}
+.elements__list:hover {
+  cursor: pointer;
 }

@@ -10,8 +10,6 @@ const pageTitle = document.querySelector(".profile__head");
 const pageSubtitle = document.querySelector(".profile__text");
 const nameInput = popupTypeInfo.querySelector("#title");
 const jobInput = popupTypeInfo.querySelector("#subtitle");
-const newCards = popupTypeInfo.querySelector("#text");
-const newPhoto = popupTypeCard.querySelector("#picture");
 const initialcards = [
   {
     name: "Архыз",
@@ -39,67 +37,23 @@ const initialcards = [
   },
 ];
 const placesContainer = document.querySelector(".elements__lists");
-const placeTemplate = document.querySelector("#cards").content;
+const placeTemplate = document
+  .querySelector("#cards")
+  .content.querySelector(".elements__list");
 const newItemTitleinput = popupTypeCard.querySelector("#text");
 const newItemimginput = popupTypeCard.querySelector("#picture");
+const popupTypeImg = document.querySelector(".popup_type_imaged");
+const popupImage = document.querySelector(".popup__picture");
+const popupFigaption = document.querySelector(".popup__figaption");
+const buttonClosedImg = popupTypeImg.querySelector(".button_size_closed");
+//edit new card
 
-
-//edit new card 
-
-function establishInitialCards(item) {
-    const initialElement = placeTemplate.cloneNode(true);
-    const initialImage = initialElement.querySelector(".elements__photo");
-    initialElement.querySelector(".elements__title").textContent = item.name;
-    initialImage.src = item.link;
-    initialImage.alt = item.name;
-    initialElement.querySelector(".button_size_trash").addEventListener("click", function (evt) {
-      evt.target.closest('.item').remove()
-    });
-    initialElement.querySelector('.button__like_type').addEventListener('click', function (evt) {
-      evt.target.classList.toggle('.button__like_type_active')
-    });
-    
-    return initialElement
-} 
-
-
-function renderCard(item) {
-    const cardCreated = establishInitialCards(item)
-    placesContainer.append(cardCreated);
+function openImgPopup(evt) {
+  openImg(popupTypeImg);
+  popupImage.src = evt.target.src;
+  popupImage.alt = evt.target.alt;
+  popupFigaption.textContent = evt.target.alt;
 }
-
-function createdCard(evt) {
-    evt.preventDefault();
-    const cardInfo = {};
-    cardInfo.name = newItemTitleinput.value;
-    cardInfo.link = newItemimginput.value;
-    renderCard(cardInfo)
-}
-
-initialcards.forEach(renderCard);
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-
- const cardCreate = establishInitialCards(item)
-    elementList.prepend(cardCreated);
-
-initialcards.forEach((item) => {
-    const CardCreated = establishInitialCards(item)
-    placesContainer.append(CardCreated);
-});
 
 function establishInitialCards(item) {
   const initialElement = placeTemplate.cloneNode(true);
@@ -107,23 +61,38 @@ function establishInitialCards(item) {
   initialElement.querySelector(".elements__title").textContent = item.name;
   initialImage.src = item.link;
   initialImage.alt = item.name;
-  initialElement.querySelector(".button_size_trash").addEventListener("click", function(evt){
-    evt.target.closest('.item').remove()
-  });
-  initialElement.querySelector('.button__like_type').addEventListener('click', function(evt){
-    evt.target.classList.toggle('.button__like_type_active')
-  });
-  
-  return initialElement
-} 
+  initialElement
+    .querySelector(".button_size_trash")
+    .addEventListener("click", function (evt) {
+      evt.target.closest(".elements__list").remove();
+    });
+  initialElement
+    .querySelector(".button__like")
+    .addEventListener("click", function (evt) {
+      evt.target.classList.toggle("button__like_active");
+    });
+
+  initialImage.addEventListener("click", openImgPopup);
+
+  return initialElement;
+}
+
+function renderCard(item) {
+  const cardCreated = establishInitialCards(item);
+  placesContainer.prepend(cardCreated);
+}
 
 function createdCard(evt) {
-    evt.preventDefault();
-    const cardInfo = {};
-    cardInfo.name = newItemTitleinput.value;
-    cardInfo.link = newItemimginput.value;
+  evt.preventDefault();
+  const cardInfo = {};
+  cardInfo.name = newItemTitleinput.value;
+  cardInfo.link = newItemimginput.value;
+  renderCard(cardInfo);
+  closeCard(popupTypeCard);
 }
-*/
+
+initialcards.forEach(renderCard);
+
 function openPopup() {
   nameInput.value = pageTitle.textContent;
   jobInput.value = pageSubtitle.textContent;
@@ -137,7 +106,17 @@ function openCard() {
 }
 function closeCard() {
   popupTypeCard.classList.remove("popup_opened");
+  newItemTitleinput.value = "";
+  newItemimginput.value = "";
 }
+function openImg() {
+  popupTypeImg.classList.add("popup_opened");
+}
+
+function closeImg() {
+  popupTypeImg.classList.remove("popup_opened");
+}
+
 function handleFormSubmit(evt) {
   evt.preventDefault();
   pageTitle.textContent = nameInput.value;
@@ -151,3 +130,4 @@ buttonClosedInfo.addEventListener("click", closePopup);
 buttonClosedCard.addEventListener("click", closeCard);
 formElement.addEventListener("submit", handleFormSubmit);
 cardsElement.addEventListener("submit", createdCard);
+buttonClosedImg.addEventListener("click", closeImg);
