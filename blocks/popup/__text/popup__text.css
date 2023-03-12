@@ -6,26 +6,20 @@
   line-height: 17px;
   margin-left: 35px;
   margin-right: 35px;
-  margin-bottom: 33px;
+  margin-bottom: 0;
   border-top: none;
   border-left: none;
   border-right: none;
   border-bottom: 1px solid #000000;
-  border-color: rgba(0,0,0,0.2);
+  border-color: rgba(0, 0, 0, 0.2);
+  padding: 0;
+}
 
-}
-.popup__text:last-of-type{
-  margin-bottom: 48px;
-}
 @media screen and (max-width: 900px) {
   .popup__text {
     font-size: 14px;
     line-height: 17px;
     margin-left: 22px;
     margin-right: 22px;
-    margin-bottom: 30px;
-  }
-  .popup__text:last-of-type{
-    margin-bottom: 45px;
   }
 }

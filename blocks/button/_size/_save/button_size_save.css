@@ -9,9 +9,9 @@
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
+  margin-top: 18px;
   margin-bottom: 37px;
   margin-left: 35px;
-  margin-bottom: 35px;
 }
 .button_size_save:hover {
   opacity: 0.8;
