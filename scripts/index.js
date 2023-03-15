@@ -1,3 +1,6 @@
+import {enableValidation} from "./components/validate.js"
+import {openPopup, closePopup} from "./components/modal.js"
+const popups = document.querySelectorAll(".popup");
 const buttonInfo = document.querySelector(".button_size_small");
 const buttonCard = document.querySelector(".button_size_big");
 const pageTitle = document.querySelector(".profile__head");
@@ -6,7 +9,6 @@ const popupTypeInfo = document.querySelector(".popup_type_info");
 const formElement = popupTypeInfo.querySelector("#info");
 const nameInput = popupTypeInfo.querySelector(".popup__text");
 const jobInput = popupTypeInfo.querySelector("#subtitle");
-
 const popupTypeCard = document.querySelector(".popup_type_card");
 const cardsElement = popupTypeCard.querySelector(".form");
 const newItemTitleinput = popupTypeCard.querySelector("#text");
@@ -45,12 +47,17 @@ const initialcards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-const closeExit = (evt) => {
-  const popup = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape'){
-  closePopup(popup);
-  }
-};
+
+
+
+
+
+
+
+
+
+
+
 
 const closeOverlay = (evt) => {
   if (evt.target === evt.currentTarget){
@@ -58,125 +65,11 @@ const closeOverlay = (evt) => {
   }
 };
 
-
-// валидация 
-
-const userNameSpan = popupTypeInfo.querySelector(".name-input-error");
-const subtitleSpan = popupTypeInfo.querySelector(".subtitle-input-error");
-
-const pictureSpan = popupTypeCard.querySelector(".picture-input-error");
-const referenceSpan = popupTypeCard.querySelector(".reference-input-error");
-
-
-
-function showValidationTitle(){
-  userNameSpan.textContent = nameInput.validationMessage;
-}
-
-function showValidationSubtitle(){
-  subtitleSpan.textConten = jobInput.validationMessage;
-}
-
-function showValidationPicture(){
-  pictureSpan.textContent = newItemTitleinput.validationMessage;
-}
-
-function showValidationReference(){
-  referenceSpan.textContent = newItemImginput.validationMessage;
-}
-
-nameInput.addEventListener("input", showValidationTitle);
-jobInput.addEventListener("input", showValidationSubtitle);
-newItemTitleinput.addEventListener("input", showValidationPicture);
-newItemImginput.addEventListener("input", showValidationReference);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*const showInputError = (element) => {
-  element.classList.add('popup__text_type_error');
-  userNameSpan.textContent = nameInput.validationMessage;
-};
-
-
-function showInputError(nameInput){
-  const formErrorSelector = `#error-${nameInput.id}`;  
-  const spanElement = document.querySelector(formErrorSelector);
-  spanElement.textContent = errorMessage;
-}
-
-
-const hideInputError = (element) => {
-  element.classList.remove('popup__text_type_error');
-};
-
-const isValid = () => {
-  if (!nameInput.validity.valid){
-    showInputError(nameInput, nameInput.validationMessage);
-  }else {
-    hideInputError(nameInput);
-  }
-}
-const inputList = document.querySelectorAll("popup__text");
-
-inputList.forEach(nameInput => {
-  nameInput.addEventListener("input", () => isValid());
+popups.forEach(popup => {
+  popup.addEventListener("mousedown", closeOverlay)
 });
 
 
-
-//
-//nameInput.addEventListener("input", isValid);
-
-
-
-formElement.addEventListener("input", function (evt){
-  console.log(evt.target.validity.valid);
-});
-*/
-
-
-//открытие и закрытие 
-
-function openPopup(popup){
- popup.classList.add("popup_opened");
- document.addEventListener("keydown", closeExit);
- popup.addEventListener("click", closeOverlay);
-}
-
-
-function closePopup(popup){
-  popup.classList.remove("popup_opened")
-  document.removeEventListener("keydown", closeExit);
-  popup.removeEventListener("click", closeOverlay);
-}
 
 function openPopupProfile(evt) {
   nameInput.value = pageTitle.textContent;
@@ -190,13 +83,13 @@ function openPopupCard() {
   openPopup(popupTypeCard);
 }
 
-function openImgPopup(evt) {
+function openImgPopup(item) {
   openPopup(popupTypeImg);
-  popupImage.src = evt.target.src;
-  popupImage.alt = evt.target.alt;
-  popupFigaption.textContent = evt.target.alt;
+  popupImage.src = item.link;
+  popupImage.alt = item.name;
+  popupFigaption.textContent = item.name;
 }
-// ввод данных 
+
 
 
 function handleFormSubmit(evt) {
@@ -205,6 +98,7 @@ function handleFormSubmit(evt) {
   pageSubtitle.textContent = jobInput.value;
   closePopup(popupTypeInfo);
 }
+
 // создание новой карточки 
 
 function establishInitialCards(item) {
@@ -224,7 +118,7 @@ function establishInitialCards(item) {
       evt.target.classList.toggle("button__like_active");
     });
 
-  initialImage.addEventListener("click", openImgPopup);
+  initialImage.addEventListener("click",() => openImgPopup(item));
 
   return initialElement;
 }
@@ -240,7 +134,15 @@ function createdCard(evt) {
   cardInfo.name = newItemTitleinput.value;
   cardInfo.link = newItemImginput.value;
   renderCard(cardInfo);
+  evt.target.reset();
   closePopup(popupTypeCard);
+  disableButtonAfterAdd();
+}
+function disableButtonAfterAdd(){
+  const buttonCardCreated = popupTypeCard.querySelector("#button-card-created");
+  buttonCardCreated.setAttribute("disabled", "");
+
+  buttonCard.classList.add()
 }
 
 initialcards.forEach(renderCard);
@@ -249,10 +151,24 @@ initialcards.forEach(renderCard);
 // слушатели 
 
 popupCloseButtonList.forEach(popupCloseButton => {
-  const popup = popupCloseButton.closest('.popup');
-  popupCloseButton.addEventListener('click', () => closePopup(popup))
+  const popup = popupCloseButton.closest(".popup");
+  popupCloseButton.addEventListener("click", () => closePopup(popup))
 })
 buttonInfo.addEventListener("click", openPopupProfile);
 buttonCard.addEventListener("click", openPopupCard);
 formElement.addEventListener("submit", handleFormSubmit,);
 cardsElement.addEventListener("submit", createdCard);
+
+
+// валидация 
+
+
+enableValidation({
+  formSelector:".form",
+  inputSelector: ".popup__text",
+  submitButtonSelector: ".button_size_save",
+  inactiveButtonClass: ".form__submit_inactive",
+  inputErrorclass: ".popup__text_type_error",
+});
+
+ 

@@ -39,11 +39,11 @@
         </button>
         <form class="form" id="info" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__text" placeholder="Имя" id="title" minlength="2" maxlength="40" required>
-          <span class="popup__input-error name-input-error" id="error-name"></span>
+          <input type="text" class="popup__text" placeholder="Имя" id="title" minlength="2" maxlength="40" pattern="[A-ZА-ЯЁ][a-zа-яё]*" required>
+          <span class="name-input-error popup__input-error" id="title-error"></span>
           <input type="text" placeholder="О себе" class="popup__text" id="subtitle" minlength="2" maxlength="200" required>
-          <span class="popup__input-error subtitle-input-error" id="sub"></span>
-          <button type="submit" action="#" class="button button_size_save">
+          <span class="subtitle-input-error popup__input-error" id="subtitle-error"></span>
+          <button type="submit" action="#"  class="button button_size_save">
             Сохранить
           </button>
         </form>
@@ -56,20 +56,19 @@
         </button>
         <form class="form" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          <input type="text" placeholder="Название" class="popup__text" id="text" minlength="2" maxlength="40" required>
-          <span class="popup__input-error picture-input-error" id="error-picture"></span>
+          <input type="text" placeholder="Название" class="popup__text" id="text" minlength="2" maxlength="40" patern="[A-ZА-ЯЁ][a-zа-яё]*"  required>
+          <span class="popup__input-error picture-input-error" id="text-error"></span>
           <input
             type="url"
             placeholder="Ссылка на картинку"
             class="popup__text"
             id="picture"
             minlength="2" 
-            maxlength="40" 
             required
           />
-          <span class="popup__input-error reference-input-error" id="error-reference"></span>
-          <button type="submit" class="button button_size_save">
-            Сохранить
+          <span class="popup__input-error reference-input-error" id="picture-error"></span>
+          <button type="submit" class="button button_size_save" id="button-card-created">
+            Создать 
           </button>
         </form>
       </div>
@@ -101,6 +100,6 @@
         </button>
       </li>
     </template>
-    <script type="text/javascript" src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>
