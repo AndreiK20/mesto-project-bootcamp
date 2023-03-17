@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Место</title>
   </head>
   <body class="root">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Место">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Место">
     </header>
     <div class="main">
       <section class="profile profile__size">
-        <img class="avatar" src="./images/Avatar.jpg" alt="портрет">
+        <img class="avatar" src="<%=require('./images/Avatar.jpg')%>" alt="портрет">
         <div class="profile__info">
           <div class="profile__titles">
             <h1 class="profile__head">Жак-Ив Кусто</h1>
@@ -22,7 +21,7 @@
           <button type="submit" class="button button_size_small"></button>
         </div>
         <button type="submit" class="button button_size_big">
-          <img class="button__vector" src="./images/Vector.svg" alt="курсор">
+          <img class="button__vector" src="<%=require('./images/Vector.svg')%>" alt="курсор">
         </button>
       </section>
       <section class="elements">
@@ -35,71 +34,92 @@
     <div class="popup popup_type_info">
       <div class="popup__container">
         <button type="submit" class="popup_closed button button_size_closed" type="button">
-          <img class="popup__cross" src="./images/Close Icon.svg" alt="крест">
+          <img class="popup__cross" src="<%=require('./images/Close Icon.svg')%>" alt="крест">
         </button>
         <form class="form" id="info" novalidate>
           <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__text" placeholder="Имя" id="title" minlength="2" maxlength="40" pattern="[A-ZА-ЯЁ][a-zа-яё]*" required>
+          <input
+            type="text"
+            class="popup__text"
+            placeholder="Имя"
+            id="title"
+            minlength="2"
+            maxlength="40"
+            pattern="[A-ZА-ЯЁ][a-zа-яё]*"
+            required
+          />
           <span class="name-input-error popup__input-error" id="title-error"></span>
-          <input type="text" placeholder="О себе" class="popup__text" id="subtitle" minlength="2" maxlength="200" required>
+          <input
+            type="text"
+            placeholder="О себе"
+            class="popup__text"
+            id="subtitle"
+            minlength="2"
+            maxlength="200"
+            required
+          />
           <span class="subtitle-input-error popup__input-error" id="subtitle-error"></span>
-          <button type="submit" action="#"  class="button button_size_save">
+          <button type="submit" action="#" class="button button_size_save">
             Сохранить
           </button>
         </form>
       </div>
     </div>
-    <div class="popup  popup_type_card">
+    <div class="popup popup_type_card">
       <div class="popup__container">
         <button type="button" class="popup_closed button button_size_closed">
-          <img class="popup__cross" src="./images/Close Icon.svg" alt="крест">
+          <img class="popup__cross" src="<%=require('./images/Close Icon.svg')%>" alt="крест">
         </button>
         <form class="form" novalidate>
           <h2 class="popup__title">Новое место</h2>
-          <input type="text" placeholder="Название" class="popup__text" id="text" minlength="2" maxlength="40" patern="[A-ZА-ЯЁ][a-zа-яё]*"  required>
+          <input
+            type="text"
+            placeholder="Название"
+            class="popup__text"
+            id="text"
+            minlength="2"
+            maxlength="40"
+            patern="[A-ZА-ЯЁ][a-zа-яё]*"
+            required
+          />
           <span class="popup__input-error picture-input-error" id="text-error"></span>
           <input
             type="url"
             placeholder="Ссылка на картинку"
             class="popup__text"
             id="picture"
-            minlength="2" 
+            minlength="2"
             required
           />
           <span class="popup__input-error reference-input-error" id="picture-error"></span>
           <button type="submit" class="button button_size_save" id="button-card-created">
-            Создать 
+            Создать
           </button>
         </form>
       </div>
     </div>
-   <div class="popup popup_type_imaged">
+    <div class="popup popup_type_imaged">
       <figure class="popup__img">
         <button type="button" class="popup_closed button button_size_closed">
-          <img class="popup__cross" src="./images/Close Icon.svg" alt="крест">
+          <img class="popup__cross" src="<%=require('./images/Close Icon.svg')%>" alt="крест">
         </button>
-          <img class="popup__picture" src=" " alt=" ">
+        <img class="popup__picture" src=" " alt=" ">
         <figcaption class="popup__figaption"></figcaption>
       </figure>
     </div>
     <template id="cards">
       <li class="elements__list">
-        <img
-          class="elements__photo"
-          src=" "
-          alt=" "
-        />
+        <img class="elements__photo" src=" " alt=" ">
         <div class="elements__group">
           <h2 class="elements__title"></h2>
-          <button type="submit" class="button  button__like">
-            <img clas="elements__like" src="./images/like.svg" alt="сердечко">
+          <button type="submit" class="button button__like">
+            <img clas="elements__like" src="<%=require('./images/like.svg')%>" alt="сердечко">
           </button>
         </div>
         <button type="button" class="button button_size_trash">
-          <img class="elements__trash" src="./images/trash.svg" alt="корзина">
+          <img class="elements__trash" src="<%=require('./images/trash.svg')%>" alt="корзина">
         </button>
       </li>
     </template>
-    <script type="module" src="./scripts/index.js"></script>
   </body>
-</html> 
+</html>

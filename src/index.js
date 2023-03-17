@@ -1,13 +1,14 @@
-import { enableValidation } from "./components/validate.js";
+import "../src/pages/index.css"
+import { enableValidation } from "./validate.js";
 import {
   openPopup,
   closePopup,
   SetOverlayListeners,
   formElement,
   popupTypeInfo,
-} from "./components/modal.js";
-import { establishInitialCards } from "./components/card.js";
-import { initialcards } from "./components/initialcards.js";
+} from "./modal.js";
+import { establishInitialCards } from "./card.js";
+import { initialcards } from "./initialcards.js";
 const popups = document.querySelectorAll(".popup");
 const buttonInfo = document.querySelector(".button_size_small");
 const buttonCard = document.querySelector(".button_size_big");
