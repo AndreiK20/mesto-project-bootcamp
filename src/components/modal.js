@@ -1,6 +1,10 @@
 //открытие и закрытие
-export const formElement = document.querySelector("#info");
 export const popupTypeInfo = document.querySelector(".popup_type_info");
+export const popupFormInfo = popupTypeInfo.querySelector("#info");
+export const pageTitle = document.querySelector(".profile__head");
+export const pageSubtitle = document.querySelector(".profile__text");
+export const nameInput = document.querySelector("#title");
+export const jobInput = document.querySelector("#subtitle");
 export function openPopup(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener("keydown", closeExit);
@@ -18,12 +22,5 @@ const closeExit = (evt) => {
 
 
 
-function handleFormSubmit(evt) {
-    evt.preventDefault();
-    pageTitle.textContent = nameInput.value;
-    pageSubtitle.textContent = jobInput.value;
-    closePopup(popupTypeInfo);
-  }
-export function SetOverlayListeners(){
-    formElement.addEventListener("submit", handleFormSubmit,); 
-}
+
+

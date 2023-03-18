@@ -1,7 +1,7 @@
 .popup__img {
   position: relative;
-  width: 75%;
-  height: 75%;
+  width: 75vw;
+  height: 75vh;
   margin: 0;
   padding: 0;
   align-self: center;

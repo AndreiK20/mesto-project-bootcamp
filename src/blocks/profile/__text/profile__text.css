@@ -1,17 +1,21 @@
 .profile__text {
+  display: block;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
   margin: 0;
   padding: 0;
-  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: wrap;
+  width: 336px
 }
 @media screen and (max-width: 900px) {
   .profile__text {
     font-size: 14px;
     line-height: 17px;
     text-align: center;
+    width: 189px;
   }
 }
