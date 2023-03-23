@@ -1,4 +1,4 @@
-export const initialcards = [
+ export const initialcards = [
     {
       name: "Архыз",
       link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
