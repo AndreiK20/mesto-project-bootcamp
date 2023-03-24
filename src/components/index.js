@@ -10,7 +10,7 @@ import {
   nameInput,
   jobInput,
 } from "./modal.js";
-//import { establishInitialCards } from "./card.js";
+import { establishInitialCards } from "./card.js";
 //import { initialcards } from "./initialcards.js";
 import { getUser, getInitialCards } from "./api";
 const popups = document.querySelectorAll(".popup");
@@ -35,10 +35,6 @@ const settings = {
   inactiveButtonClass: "form__submit_inactive",
   inputErrorclass: "popup__text_type_error",
 };
-const placeTemplate = document
-  .querySelector("#cards")
-  .content.querySelector(".elements__list");
-const cardImage = document.querySelector(".popup__picture");
 
 
 //
@@ -52,9 +48,9 @@ Promise.all([getUser(), getInitialCards()])
   });
 });
 
-function renderCard(card, ID) {
-  const cardCreated = establishInitialCards(card, ID);
-  placesContainer.prepend(cardCreated);
+function renderCard(newCard) {
+ // const cardCreated = establishInitialCards(card, openImgPopup);
+  placesContainer.prepend(newCard);
 }
 
 function createdCard(evt) {
@@ -62,11 +58,10 @@ function createdCard(evt) {
   const cardInfo = {};
   cardInfo.name = newItemTitleinput.value;
   cardInfo.link = newItemImginput.value;
-  renderCard(cardInfo);
+  const cardCreated = establishInitialCards(cardInfo, openImgPopup);
+  renderCard(cardCreated);
   closePopup(popupTypeCard);
 }
-
-
 
 
 //открытие форм
@@ -77,26 +72,6 @@ function  openImgPopup(evt) {
   popupImage.src = evt.target.src;
   popupImage.alt = evt.target.alt;
   popupFigaption.textContent = evt.target.alt;
-}
-// перенес временно 
-function establishInitialCards(card, openImgPopup) {
-  const initialElement = placeTemplate.cloneNode(true);
-  const initialImage = initialElement.querySelector(".elements__photo");
-  initialElement.querySelector(".elements__title").textContent = card.name;
-  initialImage.src = card.link;
-  initialImage.alt = card.name;
-  initialElement
-    .querySelector(".button_size_trash")
-    .addEventListener("click", function (evt) {
-      evt.target.closest(".elements__list").remove();
-    });
-  initialElement
-    .querySelector(".button__like")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("button__like_active");
-    });
-  initialImage.addEventListener("click", (evt) => openImgPopup(evt));
-  return initialElement;
 }
 
 function openPopupProfile(evt) {
@@ -127,6 +102,8 @@ popups.forEach((popup) => {
 });
 
 // создание новой карточки
+
+
 
 function handleFormSubmitPopupInfo(evt) {
   evt.preventDefault();
