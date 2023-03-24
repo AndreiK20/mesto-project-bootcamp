@@ -12,7 +12,7 @@ import {
 } from "./modal.js";
 import { establishInitialCards } from "./card.js";
 //import { initialcards } from "./initialcards.js";
-import { getUser, getInitialCards } from "./api";
+import { getUser, getInitialCards, updateInform, createNewCardforApi } from "./api";
 const popups = document.querySelectorAll(".popup");
 const buttonInfo = document.querySelector(".button_size_small");
 const buttonCard = document.querySelector(".button_size_big");
@@ -43,25 +43,12 @@ Promise.all([getUser(), getInitialCards()])
   profileNameCard.textContent = userInfo.name;
   profileJobCard.textContent = userInfo.about;
   cards.forEach((card) => {
-    const newCard = establishInitialCards(card, userInfo._id);
+    const newCard = establishInitialCards(card, openImgPopup, userInfo._id);
     renderCard(newCard);
   });
 });
 
-function renderCard(newCard) {
- // const cardCreated = establishInitialCards(card, openImgPopup);
-  placesContainer.prepend(newCard);
-}
-
-function createdCard(evt) {
-  evt.preventDefault();
-  const cardInfo = {};
-  cardInfo.name = newItemTitleinput.value;
-  cardInfo.link = newItemImginput.value;
-  const cardCreated = establishInitialCards(cardInfo, openImgPopup);
-  renderCard(cardCreated);
-  closePopup(popupTypeCard);
-}
+updateInform();
 
 
 //открытие форм
@@ -102,6 +89,31 @@ popups.forEach((popup) => {
 });
 
 // создание новой карточки
+function renderCard(newCard) {
+  placesContainer.prepend(newCard);
+}
+
+/*function createdCard(evt) {
+  evt.preventDefault();
+  const cardInfo = {};
+  cardInfo.name = newItemTitleinput.value;
+  cardInfo.link = newItemImginput.value;
+  const cardCreated = establishInitialCards(cardInfo, openImgPopup);
+  renderCard(cardCreated);
+  closePopup(popupTypeCard);
+}*/
+ function createCardApi(evt) {
+  evt.sumbmitter.textContent = 'Сохранение....';
+  createNewCardforApi({name: inputName.value, link: inputLink.value})
+  .then(res => {
+    const newCard = establishInitialCards(card, openImgPopup, userInfo._id);
+    renderCard(newCard);
+    closePopup(popupTypeCard);
+  })
+  .catch(console.log("ошибка"))
+  .finally(() => {evt.sumbmitter.textContent = 'Создать';})
+ }
+
 
 
 
@@ -120,8 +132,9 @@ popupCloseButtonList.forEach((popupCloseButton) => {
   popupCloseButton.addEventListener("click", () => closePopup(popup));
 });
 popupFormInfo.addEventListener("submit", handleFormSubmitPopupInfo);
-popupFormCard.addEventListener("submit", createdCard);
-//
+popupFormCard.addEventListener("submit", createCardApi);
+
+
 
 
 
@@ -133,4 +146,5 @@ enableValidation({
   inputErrorclass: "popup__text_type_error",
 });
 
-//setOverlayListeners();
+
+

@@ -28,7 +28,27 @@ export const getInitialCards = () => {
     .catch(console.log("ошибка"))
 } 
 
+export const updateInform = () => {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: "PATCH",
+    body: JSON.stringify({
+      name: 'Marie Skłodowska Curie',
+      about: 'Physicist and Chemist'
+    }),
+    headers: config.headers,
+  }) 
+  .then(handleResponse)
+  .catch(console.log("ошибка"))
+}
 
+export const createNewCardforApi = () =>{
+  return fetch(`${config.baseUrl}/cards`, {
+    method: "POST",
+    body: JSON.stringify(newCard),
+    headers: config.headers,
+  })
+  .then(handleResponse)
+}
 
 
 

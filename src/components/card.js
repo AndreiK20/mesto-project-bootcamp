@@ -1,7 +1,6 @@
 const placeTemplate = document
   .querySelector("#cards")
   .content.querySelector(".elements__list");
-const cardImage = document.querySelector(".popup__picture");
 
 export function establishInitialCards(cardInfo, openImgPopup) {
   const initialElement = placeTemplate.cloneNode(true);
@@ -19,11 +18,8 @@ export function establishInitialCards(cardInfo, openImgPopup) {
     .addEventListener("click", function (evt) {
       evt.target.classList.toggle("button__like_active");
     });
-  initialElement.addEventListener("click", (evt) => openImgPopup(evt));
+  initialImage.addEventListener("click", (evt) => openImgPopup(evt));
   return initialElement;
 }
 
 
-
-//initialImage.addEventListener("click", () => openImgPopup(item));
-//initialImage.addEventListener("click", (evt) => openImgPopup(evt));
