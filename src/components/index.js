@@ -12,14 +12,14 @@ import {
 } from "./modal.js";
 import { establishInitialCards } from "./card.js";
 //import { initialcards } from "./initialcards.js";
-import { getUser, getInitialCards, updateInform, createNewCardforApi } from "./api";
+import { getUser, getInitialCards, updateInform, createNewCardforApi, inputName, inputLink } from "./api";
 const popups = document.querySelectorAll(".popup");
 const buttonInfo = document.querySelector(".button_size_small");
 const buttonCard = document.querySelector(".button_size_big");
 const popupTypeCard = document.querySelector(".popup_type_card");
 const popupFormCard = popupTypeCard.querySelector(".form");
-const newItemTitleinput = popupTypeCard.querySelector("#text");
-const newItemImginput = popupTypeCard.querySelector("#picture");
+//const newItemTitleinput = popupTypeCard.querySelector("#text");
+//const newItemImginput = popupTypeCard.querySelector("#picture");
 const popupTypeImg = document.querySelector(".popup_type_imaged");
 const popupImage = document.querySelector(".popup__picture");
 const popupFigaption = document.querySelector(".popup__figaption");
@@ -28,6 +28,8 @@ const placesContainer = document.querySelector(".elements__lists");
 const buttonCardCreated = popupTypeCard.querySelector("#button-card-created");
 const profileNameCard = document.querySelector(".profile__head");
 const profileJobCard = document.querySelector(".profile__text");
+//const inputName = document.querySelector("#text");
+//const inputLink = document.querySelector("#picture");
 const settings = {
   formSelector: ".form",
   inputSelector: ".popup__text",
@@ -35,7 +37,10 @@ const settings = {
   inactiveButtonClass: "form__submit_inactive",
   inputErrorclass: "popup__text_type_error",
 };
-
+const newCard  = {
+  name: inputName.value, 
+  link: inputLink.value,
+};
 
 //
 Promise.all([getUser(), getInitialCards()])
@@ -102,18 +107,19 @@ function renderCard(newCard) {
   renderCard(cardCreated);
   closePopup(popupTypeCard);
 }*/
- function createCardApi(evt) {
-  evt.sumbmitter.textContent = 'Сохранение....';
+ /*function createCardApi(evt) {
+  evt.preventDefault();
+  buttonCardCreated.textContent = 'Сохранение....';
   createNewCardforApi({name: inputName.value, link: inputLink.value})
   .then(res => {
-    const newCard = establishInitialCards(card, openImgPopup, userInfo._id);
+    const newCard = establishInitialCards(res, res.owner._id);
     renderCard(newCard);
     closePopup(popupTypeCard);
   })
   .catch(console.log("ошибка"))
-  .finally(() => {evt.sumbmitter.textContent = 'Создать';})
+  .finally(() => {buttonCardCreated.textContent = 'Создать';})
  }
-
+*/
 
 
 
@@ -145,6 +151,4 @@ enableValidation({
   inactiveButtonClass: "form__submit_inactive",
   inputErrorclass: "popup__text_type_error",
 });
-
-
 

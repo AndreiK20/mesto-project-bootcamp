@@ -12,6 +12,7 @@ const handleResponse = (res) => {
   return Promise.reject(`Ошибка: ${res.status}`);
 };
 
+
 export const  getUser = () => {
     return fetch(`${config.baseUrl}/users/me`, {
         headers: config.headers
@@ -41,7 +42,8 @@ export const updateInform = () => {
   .catch(console.log("ошибка"))
 }
 
-export const createNewCardforApi = () =>{
+
+export const createNewCardforApi = (newCard) =>{
   return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     body: JSON.stringify(newCard),
@@ -50,6 +52,19 @@ export const createNewCardforApi = () =>{
   .then(handleResponse)
 }
 
+/*
+export const createNewCardforApi = () =>{
+  return fetch(`${config.baseUrl}/cards`, {
+    method: "POST",
+    body: JSON.stringify({
+      name: inputName.value, 
+      link: inputLink.value,
+    }),
+    headers: config.headers,
+  })
+  .then(handleResponse)
+}
+*/
 
 
 
