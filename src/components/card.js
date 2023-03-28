@@ -37,7 +37,7 @@ export function establishInitialCards(cardInfo, openImgPopup, userId) {
     buttonTrashCard.disabled = true;
     buttonTrashCard.classList.add("button__disabled");
   }
-  
+
   buttonTrashCard.addEventListener("click", () => {
     sendRequestDeleteCard(cardInfo._id)
       .then((res) => {
@@ -45,10 +45,7 @@ export function establishInitialCards(cardInfo, openImgPopup, userId) {
       })
       .catch(console.log("ошибка"));
   });
-  buttonlikeOfPicture.addEventListener("click", () => {
-    islike(cardInfo._id, buttonlikeOfPicture, quantitylike);
-  });
-
+ 
   function islike(evt) {
     const likeCard = buttonlikeOfPicture.classList.contains(
       "button__like_active"
@@ -69,7 +66,10 @@ export function establishInitialCards(cardInfo, openImgPopup, userId) {
         .catch(console.log("ошибка"));
     }
   }
-
+  
+  buttonlikeOfPicture.addEventListener("click", () => {
+    islike(cardInfo._id, buttonlikeOfPicture, quantitylike);
+  });
   checklikes.forEach((like) => {
     if (like._id === userId) {
       buttonlikeOfPicture.classList.add("button__like_active");
@@ -78,3 +78,4 @@ export function establishInitialCards(cardInfo, openImgPopup, userId) {
 
   return initialElement;
 }
+

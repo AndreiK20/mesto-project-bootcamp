@@ -167,6 +167,7 @@ function submitNewAvatar(evt) {
     });
 }
 
+
 // слушатели
 buttonInfo.addEventListener("click", openPopupProfile);
 buttonCard.addEventListener("click", openPopupCard);
