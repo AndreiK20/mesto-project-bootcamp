@@ -37,6 +37,7 @@ export function establishInitialCards(cardInfo, openImgPopup, userId) {
     buttonTrashCard.disabled = true;
     buttonTrashCard.classList.add("button__disabled");
   }
+  
   buttonTrashCard.addEventListener("click", () => {
     sendRequestDeleteCard(cardInfo._id)
       .then((res) => {

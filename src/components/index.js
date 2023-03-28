@@ -12,7 +12,13 @@ import {
 } from "./modal.js";
 import { establishInitialCards } from "./card.js";
 //import { initialcards } from "./initialcards.js";
-import { getUser, getInitialCards, updateInform, createNewCardforApi,sendRequestDeleteCard, sendRequestToUpdateAvatar} from "./api";
+import {
+  getUser,
+  getInitialCards,
+  updateInform,
+  createNewCardforApi,
+  sendRequestToUpdateAvatar,
+} from "./api";
 const popups = document.querySelectorAll(".popup");
 const buttonInfo = document.querySelector(".button_size_small");
 const buttonCard = document.querySelector(".button_size_big");
@@ -30,10 +36,10 @@ const buttomInfoCreated = document.querySelector("#newInfo");
 const profileNameCard = document.querySelector(".profile__head");
 const profileJobCard = document.querySelector(".profile__text");
 const profileAvatar = document.querySelector(".profile__avatar");
-const pictureLike = document.querySelector(".elements__like-counter"); 
+const pictureLike = document.querySelector(".elements__like-counter");
 const inputName = document.querySelector("#text");
 const inputLink = document.querySelector("#picture");
-const popupTypeAvatar = document.querySelector(".popup_type_avatar")
+const popupTypeAvatar = document.querySelector(".popup_type_avatar");
 const popupFormAvatar = document.querySelector("#avatar");
 const buttonOpenAvatar = document.querySelector(".button_size_avatar");
 const buttonAvatar = document.querySelector("#newAvatar");
@@ -46,24 +52,22 @@ const settings = {
   inactiveButtonClass: "form__submit_inactive",
   inputErrorclass: "popup__text_type_error",
 };
-const newCard  = {
-  name: inputName.value, 
-  link: inputLink.value
+const newCard = {
+  name: inputName.value,
+  link: inputLink.value,
 };
 
 const newInfoAboutUser = {
   name: nameInput.value,
-  about: jobInput.value
-}
+  about: jobInput.value,
+};
 
-const newPictureForUser ={
-  avatar: avatarlink.value
-}
-
+const newPictureForUser = {
+  avatar: avatarlink.value,
+};
 
 //
-Promise.all([getUser(), getInitialCards()])
-  .then(([userInfo, cards]) => {
+Promise.all([getUser(), getInitialCards()]).then(([userInfo, cards]) => {
   profileNameCard.textContent = userInfo.name;
   profileJobCard.textContent = userInfo.about;
   profileAvatar.src = userInfo.avatar;
@@ -73,11 +77,9 @@ Promise.all([getUser(), getInitialCards()])
   });
 });
 
-
 //открытие форм
 
-
-function  openImgPopup(evt) {
+function openImgPopup(evt) {
   openPopup(popupTypeImg);
   popupImage.src = evt.target.src;
   popupImage.alt = evt.target.alt;
@@ -102,7 +104,7 @@ function openPopupCard() {
 }
 
 function openPopupAvatar() {
-  popupFormAvatar.reset()
+  popupFormAvatar.reset();
   openPopup(popupTypeAvatar);
 }
 
@@ -121,64 +123,54 @@ function renderCard(newCard) {
   placesContainer.prepend(newCard);
 }
 
-/*function createdCard(evt) {
-  evt.preventDefault();
-  const cardInfo = {};
-  cardInfo.name = newItemTitleinput.value;
-  cardInfo.link = newItemImginput.value;
-  const cardCreated = establishInitialCards(cardInfo, openImgPopup);
-  renderCard(cardCreated);
-  closePopup(popupTypeCard);
-}*/
-
 function createCardApi(evt) {
   evt.preventDefault();
-  buttonCardCreated.textContent = 'Сохранение....';
-  createNewCardforApi({name: inputName.value, link: inputLink.value})
-  .then(res => {
-    const newCard = establishInitialCards(res, res.owner._id);
-    renderCard(newCard);
-    closePopup(popupTypeCard);
-  })
-  .catch(console.log("ошибка"))
-  .finally(() => {buttonCardCreated.textContent = 'Создать';})
- }
-//////////
-
-
-function handleFormSubmitPopupInfoApi(evt){
-  evt.preventDefault();
-  buttomInfoCreated.textContent = 'Сохранение....';
-  updateInform({ name: nameInput.value, about: jobInput.value})
-  .then((res) => {
-    pageTitle.textContent = res.name;
-    pageSubtitle.textContent = res.about
-    closePopup(popupTypeInfo);
-  })
+  buttonCardCreated.textContent = "Сохранение....";
+  createNewCardforApi({ name: inputName.value, link: inputLink.value })
+    .then((res) => {
+      const newCard = establishInitialCards(res, res.owner._id);
+      renderCard(newCard);
+      closePopup(popupTypeCard);
+    })
     .catch(console.log("ошибка"))
-    .finally(() => {buttomInfoCreated.textContent = 'Сохранить';})
+    .finally(() => {
+      buttonCardCreated.textContent = "Создать";
+    });
 }
 
-
-
-
-function submitNewAvatar(evt){
+function handleFormSubmitPopupInfoApi(evt) {
   evt.preventDefault();
-  buttonAvatar.textContent = 'Сохранение....';
-  sendRequestToUpdateAvatar(avatarlink.value) 
-  .then((res) =>{
-  profileAvatar.link = res.avatar
-  closePopup(popupTypeAvatar);
-  })
-  .catch(console.log("ошибка"))
-  .finally(() => {buttonAvatar.textContent = 'Сохранить';})
+  buttomInfoCreated.textContent = "Сохранение....";
+  updateInform({ name: nameInput.value, about: jobInput.value })
+    .then((res) => {
+      pageTitle.textContent = res.name;
+      pageSubtitle.textContent = res.about;
+      closePopup(popupTypeInfo);
+    })
+    .catch(console.log("ошибка"))
+    .finally(() => {
+      buttomInfoCreated.textContent = "Сохранить";
+    });
 }
- 
+
+function submitNewAvatar(evt) {
+  evt.preventDefault();
+  buttonAvatar.textContent = "Сохранение....";
+  sendRequestToUpdateAvatar(avatarlink.value)
+    .then((res) => {
+      profileAvatar.link = res.avatar;
+      closePopup(popupTypeAvatar);
+    })
+    .catch(console.log("ошибка"))
+    .finally(() => {
+      buttonAvatar.textContent = "Сохранить";
+    });
+}
 
 // слушатели
 buttonInfo.addEventListener("click", openPopupProfile);
 buttonCard.addEventListener("click", openPopupCard);
-buttonOpenAvatar.addEventListener("click", openPopupAvatar )
+buttonOpenAvatar.addEventListener("click", openPopupAvatar);
 popupCloseButtonList.forEach((popupCloseButton) => {
   const popup = popupCloseButton.closest(".popup");
   popupCloseButton.addEventListener("click", () => closePopup(popup));
@@ -187,10 +179,6 @@ popupFormInfo.addEventListener("submit", handleFormSubmitPopupInfoApi);
 popupFormCard.addEventListener("submit", createCardApi);
 popupFormAvatar.addEventListener("submit", submitNewAvatar);
 
-
-
-
-
 enableValidation({
   formSelector: ".form",
   inputSelector: ".popup__text",
@@ -198,4 +186,3 @@ enableValidation({
   inactiveButtonClass: "form__submit_inactive",
   inputErrorclass: "popup__text_type_error",
 });
-
