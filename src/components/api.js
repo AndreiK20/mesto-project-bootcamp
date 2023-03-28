@@ -18,7 +18,6 @@ export const  getUser = () => {
         headers: config.headers
     })
     .then(handleResponse)
-    .catch(console.log("ошибка"))
 }
 
 export const getInitialCards = () => {
@@ -26,47 +25,57 @@ export const getInitialCards = () => {
     headers: config.headers
   })
     .then(handleResponse)
-    .catch(console.log("ошибка"))
 } 
 
-export const updateInform = () => {
+export const updateInform = (newInfoAboutUser) => {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
-    body: JSON.stringify({
-      name: 'Marie Skłodowska Curie',
-      about: 'Physicist and Chemist'
-    }),
+    body: JSON.stringify(newInfoAboutUser),
     headers: config.headers,
   }) 
   .then(handleResponse)
-  .catch(console.log("ошибка"))
 }
 
 
-export const createNewCardforApi = (newCard) =>{
+export const createNewCardforApi = (newCard) => {
   return fetch(`${config.baseUrl}/cards`, {
     method: "POST",
     body: JSON.stringify(newCard),
     headers: config.headers,
-  })
+  }) 
   .then(handleResponse)
 }
 
-/*
-export const createNewCardforApi = () =>{
-  return fetch(`${config.baseUrl}/cards`, {
-    method: "POST",
-    body: JSON.stringify({
-      name: inputName.value, 
-      link: inputLink.value,
-    }),
+
+export const sendRequestDeleteCard = (id) => {
+  return  fetch(`${config.baseUrl}/cards/${id}`, {
+    method: "DELETE",
     headers: config.headers,
   })
   .then(handleResponse)
 }
-*/
 
+export const  addLikeCard =(id) => {
+  return  fetch(`${config.baseUrl}/cards/likes/${id}`, {
+    method: "PUT",
+    headers: config.headers,
+  })
+  .then(handleResponse)
+}
 
+export const  deleteLikeCard = (id) => {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+    method: "DELETE",
+    headers: config.headers,
+  })
+  .then(handleResponse)
+}
 
-
-
+export  const sendRequestToUpdateAvatar = (link) => {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: "PATCH",
+    body: JSON.stringify({avatar:link}),
+    headers: config.headers,
+  })
+  .then(handleResponse)
+}

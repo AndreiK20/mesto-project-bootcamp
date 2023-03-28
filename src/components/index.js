@@ -12,7 +12,7 @@ import {
 } from "./modal.js";
 import { establishInitialCards } from "./card.js";
 //import { initialcards } from "./initialcards.js";
-import { getUser, getInitialCards, updateInform, createNewCardforApi, inputName, inputLink } from "./api";
+import { getUser, getInitialCards, updateInform, createNewCardforApi,sendRequestDeleteCard, sendRequestToUpdateAvatar} from "./api";
 const popups = document.querySelectorAll(".popup");
 const buttonInfo = document.querySelector(".button_size_small");
 const buttonCard = document.querySelector(".button_size_big");
@@ -26,10 +26,19 @@ const popupFigaption = document.querySelector(".popup__figaption");
 const popupCloseButtonList = document.querySelectorAll(".popup_closed");
 const placesContainer = document.querySelector(".elements__lists");
 const buttonCardCreated = popupTypeCard.querySelector("#button-card-created");
+const buttomInfoCreated = document.querySelector("#newInfo");
 const profileNameCard = document.querySelector(".profile__head");
 const profileJobCard = document.querySelector(".profile__text");
-//const inputName = document.querySelector("#text");
-//const inputLink = document.querySelector("#picture");
+const profileAvatar = document.querySelector(".profile__avatar");
+const pictureLike = document.querySelector(".elements__like-counter"); 
+const inputName = document.querySelector("#text");
+const inputLink = document.querySelector("#picture");
+const popupTypeAvatar = document.querySelector(".popup_type_avatar")
+const popupFormAvatar = document.querySelector("#avatar");
+const buttonOpenAvatar = document.querySelector(".button_size_avatar");
+const buttonAvatar = document.querySelector("#newAvatar");
+const avatarlink = document.querySelector("#link");
+
 const settings = {
   formSelector: ".form",
   inputSelector: ".popup__text",
@@ -39,21 +48,30 @@ const settings = {
 };
 const newCard  = {
   name: inputName.value, 
-  link: inputLink.value,
+  link: inputLink.value
 };
+
+const newInfoAboutUser = {
+  name: nameInput.value,
+  about: jobInput.value
+}
+
+const newPictureForUser ={
+  avatar: avatarlink.value
+}
+
 
 //
 Promise.all([getUser(), getInitialCards()])
   .then(([userInfo, cards]) => {
   profileNameCard.textContent = userInfo.name;
   profileJobCard.textContent = userInfo.about;
+  profileAvatar.src = userInfo.avatar;
   cards.forEach((card) => {
     const newCard = establishInitialCards(card, openImgPopup, userInfo._id);
     renderCard(newCard);
   });
 });
-
-updateInform();
 
 
 //открытие форм
@@ -83,6 +101,11 @@ function openPopupCard() {
   openPopup(popupTypeCard);
 }
 
+function openPopupAvatar() {
+  popupFormAvatar.reset()
+  openPopup(popupTypeAvatar);
+}
+
 const closeOverlay = (evt) => {
   if (evt.target === evt.currentTarget) {
     closePopup(evt.target);
@@ -107,7 +130,8 @@ function renderCard(newCard) {
   renderCard(cardCreated);
   closePopup(popupTypeCard);
 }*/
- /*function createCardApi(evt) {
+
+function createCardApi(evt) {
   evt.preventDefault();
   buttonCardCreated.textContent = 'Сохранение....';
   createNewCardforApi({name: inputName.value, link: inputLink.value})
@@ -119,26 +143,49 @@ function renderCard(newCard) {
   .catch(console.log("ошибка"))
   .finally(() => {buttonCardCreated.textContent = 'Создать';})
  }
-*/
+//////////
 
 
-
-function handleFormSubmitPopupInfo(evt) {
+function handleFormSubmitPopupInfoApi(evt){
   evt.preventDefault();
-  pageTitle.textContent = nameInput.value;
-  pageSubtitle.textContent = jobInput.value;
-  closePopup(popupTypeInfo);
+  buttomInfoCreated.textContent = 'Сохранение....';
+  updateInform({ name: nameInput.value, about: jobInput.value})
+  .then((res) => {
+    pageTitle.textContent = res.name;
+    pageSubtitle.textContent = res.about
+    closePopup(popupTypeInfo);
+  })
+    .catch(console.log("ошибка"))
+    .finally(() => {buttomInfoCreated.textContent = 'Сохранить';})
 }
+
+
+
+
+function submitNewAvatar(evt){
+  evt.preventDefault();
+  buttonAvatar.textContent = 'Сохранение....';
+  sendRequestToUpdateAvatar(avatarlink.value) 
+  .then((res) =>{
+  profileAvatar.link = res.avatar
+  closePopup(popupTypeAvatar);
+  })
+  .catch(console.log("ошибка"))
+  .finally(() => {buttonAvatar.textContent = 'Сохранить';})
+}
+ 
 
 // слушатели
 buttonInfo.addEventListener("click", openPopupProfile);
 buttonCard.addEventListener("click", openPopupCard);
+buttonOpenAvatar.addEventListener("click", openPopupAvatar )
 popupCloseButtonList.forEach((popupCloseButton) => {
   const popup = popupCloseButton.closest(".popup");
   popupCloseButton.addEventListener("click", () => closePopup(popup));
 });
-popupFormInfo.addEventListener("submit", handleFormSubmitPopupInfo);
+popupFormInfo.addEventListener("submit", handleFormSubmitPopupInfoApi);
 popupFormCard.addEventListener("submit", createCardApi);
+popupFormAvatar.addEventListener("submit", submitNewAvatar);
 
 
 

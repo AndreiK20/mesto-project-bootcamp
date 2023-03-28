@@ -1,0 +1,18 @@
+.button_size_avatar {
+  background-color: transparent;
+  background-image: url(../../../../images/avatar_pen.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 26px 26px;
+  border-radius: 50%;
+  margin-right: 30px;
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+  object-position: center;
+  z-index: 2;
+}
+
+.button_size_avatar:hover {
+  cursor: pointer;
+}
