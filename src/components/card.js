@@ -4,11 +4,11 @@ const placeTemplate = document
   .querySelector("#cards")
   .content.querySelector(".elements__list");
 
-function removeCard(cardInfo) {
-  cardInfo.remove();
+function removeCard(initialElement) {
+  initialElement.remove();
 }
 
-export function establishInitialCards(cardInfo, openImgPopup, userId) {
+export function establishInitialCards(cardInfo, userId, openImgPopup) {
   const initialElement = placeTemplate.cloneNode(true);
   const initialImage = initialElement.querySelector(".elements__photo");
   const quantitylike = initialElement.querySelector(".elements__like-counter");
@@ -19,34 +19,18 @@ export function establishInitialCards(cardInfo, openImgPopup, userId) {
   initialElement.querySelector(".elements__title").textContent = cardInfo.name;
   initialImage.src = cardInfo.link;
   initialImage.alt = cardInfo.name;
-  /*initialElement
-    .querySelector(".button_size_trash")
-    .addEventListener("click", function (evt) {
-      evt.target.closest(".elements__list").remove();
-    });
-  initialElement
-    .querySelector(".button__like")
-    .addEventListener("click", function (evt) {
-      evt.target.classList.toggle("button__like_active");
-    });
-  */
-  initialImage.addEventListener("click", (evt) => openImgPopup(evt));
-  quantitylike.textContent = cardInfo.likes.length;
 
-  if (cardOwner !== userId) {
-    buttonTrashCard.disabled = true;
-    buttonTrashCard.classList.add("button__disabled");
-  }
+  initialImage.addEventListener("click", (evt) => openImgPopup(evt));
 
   buttonTrashCard.addEventListener("click", () => {
     sendRequestDeleteCard(cardInfo._id)
-      .then((res) => {
-        removeCard;
+      .then(() => {
+        removeCard(initialElement);
       })
-      .catch(console.log("ошибка"));
+      .catch(() => console.log("ошибка"));
   });
- 
-  function islike(evt) {
+
+  function islike() {
     const likeCard = buttonlikeOfPicture.classList.contains(
       "button__like_active"
     );
@@ -56,26 +40,32 @@ export function establishInitialCards(cardInfo, openImgPopup, userId) {
           quantitylike.textContent = res.likes.length;
           buttonlikeOfPicture.classList.add("button__like_active");
         })
-        .catch(console.log("ошибка"));
+        .catch(() => console.log("ошибка"));
     } else {
       deleteLikeCard(cardInfo._id)
         .then((res) => {
           quantitylike.textContent = res.likes.length;
           buttonlikeOfPicture.classList.remove("button__like_active");
         })
-        .catch(console.log("ошибка"));
+        .catch(() => console.log("ошибка"));
     }
   }
-  
+
   buttonlikeOfPicture.addEventListener("click", () => {
-    islike(cardInfo._id, buttonlikeOfPicture, quantitylike);
+    islike();
   });
+
   checklikes.forEach((like) => {
     if (like._id === userId) {
       buttonlikeOfPicture.classList.add("button__like_active");
     }
   });
 
+  quantitylike.textContent = cardInfo.likes.length;
+
+  if (cardOwner !== userId) {
+    buttonTrashCard.disabled = true;
+    buttonTrashCard.classList.add("button__disabled");
+  }
   return initialElement;
 }
-

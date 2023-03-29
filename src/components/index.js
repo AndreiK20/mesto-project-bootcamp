@@ -72,25 +72,36 @@ Promise.all([getUser(), getInitialCards()]).then(([userInfo, cards]) => {
   profileJobCard.textContent = userInfo.about;
   profileAvatar.src = userInfo.avatar;
   cards.forEach((card) => {
-    const newCard = establishInitialCards(card, openImgPopup, userInfo._id);
+    const newCard = establishInitialCards(card, userInfo._id, openImgPopup);
     renderCard(newCard);
   });
 });
 
 //открытие форм
+/*function openImgPopup({ name, link }) {
+  popupTypeImg.textContent = name
+  popupImage.setAttribute(src, link)
+  popupImage.setAttribute(src, name)
+  openPopup(popupTypeImg);
+}
+*/
 
 function openImgPopup(evt) {
-  openPopup(popupTypeImg);
   popupImage.src = evt.target.src;
   popupImage.alt = evt.target.alt;
   popupFigaption.textContent = evt.target.alt;
+  openPopup(popupTypeImg);
 }
+
 
 function openPopupProfile(evt) {
   nameInput.value = pageTitle.textContent;
   jobInput.value = pageSubtitle.textContent;
   openPopup(popupTypeInfo);
 }
+
+
+
 
 /*function disableButtonAfterAdd() {
   buttonCardCreated.setAttribute("disabled", "");
@@ -128,7 +139,7 @@ function createCardApi(evt) {
   buttonCardCreated.textContent = "Сохранение....";
   createNewCardforApi({ name: inputName.value, link: inputLink.value })
     .then((res) => {
-      const newCard = establishInitialCards(res, res.owner._id);
+      const newCard = establishInitialCards(res, res.owner._id, openImgPopup);
       renderCard(newCard);
       closePopup(popupTypeCard);
     })
