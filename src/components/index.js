@@ -170,7 +170,9 @@ function submitNewAvatar(evt) {
   buttonAvatar.textContent = "Сохранение....";
   sendRequestToUpdateAvatar(avatarlink.value)
     .then((res) => {
-      profileAvatar.link = res.avatar;
+      //avatarlink.src = res.avatar
+      profileAvatar.src = res.avatar;
+      console.log(res.avatar);
       closePopup(popupTypeAvatar);
     })
     .catch(console.log("ошибка"))
