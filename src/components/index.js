@@ -116,6 +116,7 @@ function openPopupCard() {
 
 function openPopupAvatar() {
   popupFormAvatar.reset();
+  disableSubmitButton(buttonAvatar, settings);
   openPopup(popupTypeAvatar);
 }
 
