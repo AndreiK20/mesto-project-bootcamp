@@ -8,7 +8,7 @@ function removeCard(initialElement) {
   initialElement.remove();
 }
 
-export function establishInitialCards(cardInfo, userId, openImgPopup) {
+export function createCards(cardInfo, userId, openImgPopup) {
   const initialElement = placeTemplate.cloneNode(true);
   const initialImage = initialElement.querySelector(".elements__photo");
   const quantitylike = initialElement.querySelector(".elements__like-counter");
@@ -30,7 +30,7 @@ export function establishInitialCards(cardInfo, userId, openImgPopup) {
       .catch(() => console.log("ошибка"));
   });
 
-  function islike() {
+  function handleLike() {
     const likeCard = buttonlikeOfPicture.classList.contains(
       "button__like_active"
     );
@@ -51,9 +51,7 @@ export function establishInitialCards(cardInfo, userId, openImgPopup) {
     }
   }
 
-  buttonlikeOfPicture.addEventListener("click", () => {
-    islike();
-  });
+  buttonlikeOfPicture.addEventListener("click", handleLike);
 
   checklikes.forEach((like) => {
     if (like._id === userId) {

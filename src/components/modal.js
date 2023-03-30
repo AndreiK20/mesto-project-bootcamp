@@ -7,15 +7,15 @@ export const nameInput = document.querySelector("#title");
 export const jobInput = document.querySelector("#subtitle");
 export function openPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closeExit);
+  document.addEventListener("keydown", handleEscape);
 }
 export function closePopup(popup) {
   popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closeExit);
+  document.removeEventListener("keydown", handleEscape);
 }
-const closeExit = (evt) => {
-  const popup = document.querySelector(".popup_opened");
+const handleEscape = (evt) => {
   if (evt.key === "Escape") {
+    const popup = document.querySelector(".popup_opened");
     closePopup(popup);
   }
 };

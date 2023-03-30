@@ -10,8 +10,7 @@ import {
   nameInput,
   jobInput,
 } from "./modal.js";
-import { establishInitialCards } from "./card.js";
-//import { initialcards } from "./initialcards.js";
+import { createCards } from "./card.js";
 import {
   getUser,
   getInitialCards,
@@ -19,13 +18,13 @@ import {
   createNewCardforApi,
   sendRequestToUpdateAvatar,
 } from "./api";
+import { settings } from "./constants";
+
 const popups = document.querySelectorAll(".popup");
 const buttonInfo = document.querySelector(".button_size_small");
 const buttonCard = document.querySelector(".button_size_big");
 const popupTypeCard = document.querySelector(".popup_type_card");
 const popupFormCard = popupTypeCard.querySelector(".form");
-//const newItemTitleinput = popupTypeCard.querySelector("#text");
-//const newItemImginput = popupTypeCard.querySelector("#picture");
 const popupTypeImg = document.querySelector(".popup_type_imaged");
 const popupImage = document.querySelector(".popup__picture");
 const popupFigaption = document.querySelector(".popup__figaption");
@@ -45,13 +44,6 @@ const buttonOpenAvatar = document.querySelector(".button_size_avatar");
 const buttonAvatar = document.querySelector("#newAvatar");
 const avatarlink = document.querySelector("#link");
 
-const settings = {
-  formSelector: ".form",
-  inputSelector: ".popup__text",
-  submitButtonSelector: ".button_size_save",
-  inactiveButtonClass: "form__submit_inactive",
-  inputErrorclass: "popup__text_type_error",
-};
 const newCard = {
   name: inputName.value,
   link: inputLink.value,
@@ -67,24 +59,22 @@ const newPictureForUser = {
 };
 
 //
-Promise.all([getUser(), getInitialCards()]).then(([userInfo, cards]) => {
-  profileNameCard.textContent = userInfo.name;
-  profileJobCard.textContent = userInfo.about;
-  profileAvatar.src = userInfo.avatar;
-  cards.forEach((card) => {
-    const newCard = establishInitialCards(card, userInfo._id, openImgPopup);
-    renderCard(newCard);
+
+Promise.all([getUser(), getInitialCards()])
+  .then(([userInfo, cards]) => {
+    profileNameCard.textContent = userInfo.name;
+    profileJobCard.textContent = userInfo.about;
+    profileAvatar.src = userInfo.avatar;
+    cards.forEach((card) => {
+      const newCard = createCards(card, userInfo._id, openImgPopup);
+      renderCard(newCard);
+    });
+  })
+  .catch((err) => {
+    console.error(`Ошибка: ${err}`);
   });
-});
 
 //открытие форм
-/*function openImgPopup({ name, link }) {
-  popupTypeImg.textContent = name
-  popupImage.setAttribute(src, link)
-  popupImage.setAttribute(src, name)
-  openPopup(popupTypeImg);
-}
-*/
 
 function openImgPopup(evt) {
   popupImage.src = evt.target.src;
@@ -93,20 +83,11 @@ function openImgPopup(evt) {
   openPopup(popupTypeImg);
 }
 
-
 function openPopupProfile(evt) {
   nameInput.value = pageTitle.textContent;
   jobInput.value = pageSubtitle.textContent;
   openPopup(popupTypeInfo);
 }
-
-
-
-
-/*function disableButtonAfterAdd() {
-  buttonCardCreated.setAttribute("disabled", "");
-}
-*/
 
 function openPopupCard() {
   popupFormCard.reset();
@@ -131,6 +112,8 @@ popups.forEach((popup) => {
 });
 
 // создание новой карточки
+
+
 function renderCard(newCard) {
   placesContainer.prepend(newCard);
 }
@@ -140,11 +123,13 @@ function createCardApi(evt) {
   buttonCardCreated.textContent = "Сохранение....";
   createNewCardforApi({ name: inputName.value, link: inputLink.value })
     .then((res) => {
-      const newCard = establishInitialCards(res, res.owner._id, openImgPopup);
+      const newCard = createCards(res, res.owner._id, openImgPopup);
       renderCard(newCard);
       closePopup(popupTypeCard);
     })
-    .catch(console.log("ошибка"))
+    .catch((err) => {
+      console.error(`Ошибка: ${err}`);
+    })
     .finally(() => {
       buttonCardCreated.textContent = "Создать";
     });
@@ -159,7 +144,9 @@ function handleFormSubmitPopupInfoApi(evt) {
       pageSubtitle.textContent = res.about;
       closePopup(popupTypeInfo);
     })
-    .catch(console.log("ошибка"))
+    .catch((err) => {
+      console.error(`Ошибка: ${err}`);
+    })
     .finally(() => {
       buttomInfoCreated.textContent = "Сохранить";
     });
@@ -170,17 +157,16 @@ function submitNewAvatar(evt) {
   buttonAvatar.textContent = "Сохранение....";
   sendRequestToUpdateAvatar(avatarlink.value)
     .then((res) => {
-      //avatarlink.src = res.avatar
       profileAvatar.src = res.avatar;
-      console.log(res.avatar);
       closePopup(popupTypeAvatar);
     })
-    .catch(console.log("ошибка"))
+    .catch((err) => {
+      console.error(`Ошибка: ${err}`);
+    })
     .finally(() => {
       buttonAvatar.textContent = "Сохранить";
     });
 }
-
 
 // слушатели
 buttonInfo.addEventListener("click", openPopupProfile);

@@ -30,8 +30,7 @@ export function disableSubmitButton(buttonElement, settings) {
 
 const toggleButtonState = (inputList, buttonElement, settings) => {
     if (hasInvalidInput(inputList)) {
-      buttonElement.disabled = true;
-      buttonElement.classList.add(settings.inactiveButtonClass);
+    disableSubmitButton(buttonElement, settings);
     } else {
       buttonElement.disabled = false;
       buttonElement.classList.remove(settings.inactiveButtonClass);
@@ -58,9 +57,7 @@ const hasInvalidInput = (inputList) => {
     return !formInput.validity.valid;
   });
 };
-
-
-  
+ 
 
 export const enableValidation = (settings) => {
   const formList = Array.from(document.querySelectorAll(settings.formSelector));
