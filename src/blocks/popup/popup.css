@@ -10,5 +10,5 @@
   left: 0;
   opacity: 0;
   visibility: hidden;
-  transition: visibility 0s, opacity 3.2s, ease-in;
+  transition: all 0.2s ease-in;
 }
